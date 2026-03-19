@@ -1,47 +1,43 @@
 export const MAX_SLIDER_VALUE = 100;
 
-export const STYLE_DEFAULT = {
-    width: '150px',
-    color: 'success.dark',
-    "& .MuiSlider-thumb": {
-        backgroundColor: 'red',
-        ":hover": { backgroundColor: 'green' },
-        ":active": { backgroundColor: 'red' },
-        ":focus": { backgroundColor: 'pink' },
-    },
-    "&.Mui-disabled": {
-        "& .MuiSlider-thumb": {
-            backgroundColor: 'pink',
-        },
-        "& .MuiSlider-track": {
-            backgroundColor: 'pink',
-        },
-        "& .MuiSlider-rail": {
-            backgroundColor: 'pink',
-        },
-    }
-}
+export type CustomType = 'error' | 'success';
 
-export const getStyledSliderStyles = (customType: 'error' | 'success') => {
+type SliderStateColors = {
+    hover: string;
+    active: string;
+    focus: string;
+    disabled: string;
+};
+
+const thumbColors: Record<CustomType, SliderStateColors> = {
+    error: { hover: 'orange', active: 'red', focus: 'red', disabled: 'orange' },
+    success: { hover: 'green', active: 'red', focus: 'pink', disabled: 'pink' },
+};
+
+export const getStyledSliderStyles = (customType: CustomType) => {
+    const state = thumbColors[customType];
+
     return {
         width: '150px',
         color: 'success.dark',
         "& .MuiSlider-thumb": {
             backgroundColor: 'red',
-            ":hover": { backgroundColor: customType === 'error' ? 'orange' : 'green' },
-            ":active": { backgroundColor: customType === 'error' ? 'red' : 'green' },
-            ":focus": { backgroundColor: customType === 'error' ? 'red' : 'green' },
+            ":hover": { backgroundColor: state.hover },
+            ":active": { backgroundColor: state.active },
+            ":focus": { backgroundColor: state.focus },
         },
         "&.Mui-disabled": {
             "& .MuiSlider-thumb": {
-                backgroundColor: 'orange',
+                backgroundColor: state.disabled,
             },
             "& .MuiSlider-track": {
-                backgroundColor: 'orange',
+                backgroundColor: state.disabled,
             },
             "& .MuiSlider-rail": {
-                backgroundColor: 'orange',
+                backgroundColor: state.disabled,
             },
         }
-    }
-}
+    };
+};
+
+export const STYLE_DEFAULT = getStyledSliderStyles('success');
