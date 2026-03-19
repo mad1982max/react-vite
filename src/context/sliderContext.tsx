@@ -11,7 +11,7 @@ interface ContextActions {
 }
 
 export const initialContextState: ContextState = {
-    sliderValue: 0,
+    sliderValue: 25,
     isSliderDisabled: false,
 }
 
