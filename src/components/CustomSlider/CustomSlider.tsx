@@ -1,10 +1,22 @@
 import { Button, Slider, Stack, Typography } from "@mui/material";
 import { use } from "react";
 import { AppContext } from "../../context/sliderContext";
-import { MAX_SLIDER_VALUE, stylesCustom, stylesDefault } from "./helper";
+import { MAX_SLIDER_VALUE, getStyledSliderStyles, STYLE_DEFAULT } from "./helper";
+import { type SliderProps } from "@mui/material/Slider";
 import styled from "@emotion/styled";
 
-const StyledSlider = styled(Slider)(stylesCustom);
+type CustomType = 'error' | 'success';
+
+type CustomSliderProps = SliderProps & {
+    customType?: CustomType;
+}
+
+const StyledSlider = styled(
+    Slider,
+    { shouldForwardProp: (prop) => prop !== 'customType' }
+)<CustomSliderProps>(({ customType = 'success' }) =>
+    getStyledSliderStyles(customType)
+);
 
 export const CustomSlider = () => {
     const { sliderValue, setSliderValue, isSliderDisabled, setIsSliderDisabled } = use(AppContext);
@@ -26,7 +38,7 @@ export const CustomSlider = () => {
             <Stack spacing={2} direction="row" alignItems="center">
                 <Slider
                     disabled={isSliderDisabled}
-                    sx={stylesDefault}
+                    sx={STYLE_DEFAULT}
                     value={sliderValue}
                     max={MAX_SLIDER_VALUE}
                     onChange={(_e: Event, newValue: number | number[]) =>
@@ -34,6 +46,7 @@ export const CustomSlider = () => {
                     }
                 />
                 <StyledSlider
+                    customType='error'
                     disabled={isSliderDisabled}
                     value={sliderValue}
                     max={MAX_SLIDER_VALUE}

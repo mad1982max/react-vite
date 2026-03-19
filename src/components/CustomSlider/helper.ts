@@ -1,6 +1,6 @@
 export const MAX_SLIDER_VALUE = 100;
 
-export const stylesDefault = {
+export const STYLE_DEFAULT = {
     width: '150px',
     color: 'success.dark',
     "& .MuiSlider-thumb": {
@@ -22,24 +22,26 @@ export const stylesDefault = {
     }
 }
 
-export const stylesCustom = {
-    width: '150px',
-    color: 'success.dark',
-    "& .MuiSlider-thumb": {
-        backgroundColor: 'red',
-        ":hover": { backgroundColor: 'orange' },
-        ":active": { backgroundColor: 'red' },
-        ":focus": { backgroundColor: 'pink' },
-    },
-    "&.Mui-disabled": {
+export const getStyledSliderStyles = (customType: 'error' | 'success') => {
+    return {
+        width: '150px',
+        color: 'success.dark',
         "& .MuiSlider-thumb": {
-            backgroundColor: 'orange',
+            backgroundColor: 'red',
+            ":hover": { backgroundColor: customType === 'error' ? 'orange' : 'green' },
+            ":active": { backgroundColor: customType === 'error' ? 'red' : 'green' },
+            ":focus": { backgroundColor: customType === 'error' ? 'red' : 'green' },
         },
-        "& .MuiSlider-track": {
-            backgroundColor: 'orange',
-        },
-        "& .MuiSlider-rail": {
-            backgroundColor: 'orange',
-        },
+        "&.Mui-disabled": {
+            "& .MuiSlider-thumb": {
+                backgroundColor: 'orange',
+            },
+            "& .MuiSlider-track": {
+                backgroundColor: 'orange',
+            },
+            "& .MuiSlider-rail": {
+                backgroundColor: 'orange',
+            },
+        }
     }
 }
