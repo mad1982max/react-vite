@@ -3,11 +3,17 @@ import { generateDataArray } from './cardGenerator';
 
 describe('generateDataArray', () => {
     it('returns one item for sliderValue = 1', () => {
-        expect(generateDataArray(1)).toEqual(['id:1']);
+        expect(generateDataArray(1)).toEqual([{ id: '1', name: 'Card 1' }]);
     });
 
     it('returns sequential ids for sliderValue = 5', () => {
-        expect(generateDataArray(5)).toEqual(['id:1', 'id:2', 'id:3', 'id:4', 'id:5']);
+        expect(generateDataArray(5)).toEqual([
+            { id: '1', name: 'Card 1' },
+            { id: '2', name: 'Card 2' },
+            { id: '3', name: 'Card 3' },
+            { id: '4', name: 'Card 4' },
+            { id: '5', name: 'Card 5' }
+        ]);
     });
 
     it('returns empty array for sliderValue = 0', () => {
@@ -19,7 +25,11 @@ describe('generateDataArray', () => {
     });
 
     it('truncates decimal sliderValue (3.9 -> 3 items)', () => {
-        expect(generateDataArray(3.9)).toEqual(['id:1', 'id:2', 'id:3']);
+        expect(generateDataArray(3.9)).toEqual([
+            { id: '1', name: 'Card 1' },
+            { id: '2', name: 'Card 2' },
+            { id: '3', name: 'Card 3' }
+        ]);
     });
 
     it('returns empty array for NaN sliderValue', () => {
